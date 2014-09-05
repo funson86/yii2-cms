@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ebb465f565c31a69a0b2773897a7433",
+    "hash": "65513c85e1278d2875f57596997ee554",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -472,6 +472,53 @@
                 "yii2"
             ],
             "time": "2014-07-29 22:40:46"
+        },
+        {
+            "name": "zelenin/yii2-rbac-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zelenin/yii2-rbac-module.git",
+                "reference": "346373dee0de94922ee6205857561bb4fb358e85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zelenin/yii2-rbac-module/zipball/346373dee0de94922ee6205857561bb4fb358e85",
+                "reference": "346373dee0de94922ee6205857561bb4fb358e85",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "Zelenin\\yii\\modules\\Rbac\\Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zelenin\\yii\\modules\\Rbac\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksandr Zelenin",
+                    "email": "aleksandr@zelenin.me",
+                    "homepage": "http://zelenin.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 RBAC module with generating assignments to DB from RBAC data store file rbac.php",
+            "homepage": "https://github.com/zelenin/yii2-rbac-module",
+            "keywords": [
+                "rbac",
+                "yii2"
+            ],
+            "time": "2014-06-30 07:12:06"
         }
     ],
     "packages-dev": [
@@ -729,7 +776,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "zelenin/yii2-rbac-module": 20
+    },
     "prefer-stable": false,
     "platform": {
         "php": ">=5.4.0"
