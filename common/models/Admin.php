@@ -136,6 +136,14 @@ class Admin extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
+    public function getGroupId()
+    {
+        return 15;//;$this->getPrimaryKey();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getAuthKey()
     {
         return $this->auth_key;

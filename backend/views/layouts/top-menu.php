@@ -12,7 +12,7 @@ NavBar::begin([
 $menuItems = [
 	['label' => 'Home', 'url' => ['/site/index']],
 	[
-		'label' => Yii::$app->user->identity->username,
+		'label' => Yii::$app->user->isGuest ? 'Login' : Yii::$app->user->identity->username,
 		'url' => ['/site/index'],
 		'active' => false,
 		'items' => [

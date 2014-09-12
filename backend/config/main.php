@@ -9,11 +9,13 @@ $params = array_merge(
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
+	'language' => 'zh-CN',
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
         'user' => [
+            'class' => 'common\components\User',
             'identityClass' => 'common\models\Admin',
             'enableAutoLogin' => true,
         ],
@@ -30,5 +32,16 @@ return [
             'errorAction' => 'site/error',
         ],
     ],
-    'params' => $params,
+	/*'modules' => [
+		'admin' => [
+			'class' => 'mdm\admin\Module',
+		]
+	],
+	'as access' => [
+		'class' => 'mdm\admin\components\AccessControl',
+		'allowActions' => [
+			'admin/*', // add or remove allowed actions to this list
+		],
+	],*/
+	'params' => $params,
 ];
