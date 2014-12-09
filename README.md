@@ -1,97 +1,104 @@
-Yii 2 Advanced Application Template
-===================================
+Yii2 Cms
+=========
+Yii2 Cms for other application, especially for [Yii2 Adminlte](https://github.com/funson86/yii2-adminlte)
 
-Yii 2 Advanced Application Template is a skeleton Yii 2 application best for
-developing complex Web applications with multiple tiers.
-
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
-
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
-
-
-DIRECTORY STRUCTURE
--------------------
-
-```
-common
-	config/				contains shared configurations
-	mail/				contains view files for e-mails
-	models/				contains model classes used in both backend and frontend
-	tests/				contains various tests for objects that are common among applications
-console
-	config/				contains console configurations
-	controllers/		contains console controllers (commands)
-	migrations/			contains database migrations
-	models/				contains console-specific model classes
-	runtime/			contains files generated during runtime
-	tests/				contains various tests for the console application
-backend
-	assets/				contains application assets such as JavaScript and CSS
-	config/				contains backend configurations
-	controllers/		contains Web controller classes
-	models/				contains backend-specific model classes
-	runtime/			contains files generated during runtime
-	tests/				contains various tests for the backend application
-	views/				contains view files for the Web application
-	web/				contains the entry script and Web resources
-frontend
-	assets/				contains application assets such as JavaScript and CSS
-	config/				contains frontend configurations
-	controllers/		contains Web controller classes
-	models/				contains frontend-specific model classes
-	runtime/			contains files generated during runtime
-	tests/				contains various tests for the frontend application
-	views/				contains view files for the Web application
-	web/				contains the entry script and Web resources
-vendor/					contains dependent 3rd-party packages
-environments/			contains environment-based overrides
-```
-
-
-REQUIREMENTS
+Installation
 ------------
 
-The minimum requirement by this application template that your Web server supports PHP 5.4.0.
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require --prefer-dist funson86/yii2-cms "*"
+```
+
+or add
+
+```
+"funson86/yii2-blog": "*"
+```
+
+to the require section of your `composer.json` file.
 
 
-INSTALLATION
-------------
+Usage
+-----
 
-### Install from an Archive File
+Once the extension is installed, simply use it in your code by  :
 
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `advanced` that is directly under the Web root.
+### Migration
 
-Then follow the instructions given in "GETTING STARTED".
+Migration run
 
+```php
+yii migrate --migrationPath=@funson86/blog/migrations
+```
 
-### Install via Composer
+### Config url rewrite in /common/config/main.php
+```php
+    'timeZone' => 'Asia/Shanghai', //time zone affect the formatter datetime format
+    'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
+        ],
+        'formatter' => [ //for the showing of date datetime
+            'dateFormat' => 'yyyy-MM-dd',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'CNY',
+        ],
+    ],
+```
 
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+### Config backend modules in backend/config/main.php
 
-You can then install the application using the following command:
+```php
+    'modules' => [
+        'blog' => [
+            'class' => 'funson86\blog\Module',
+            'controllerNamespace' => 'funson86\blog\controllers\backend'
+        ],
+    ],
+```
 
-~~~
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
-~~~
+### Config frontend modules in frontend/config/main.php
 
+```php
+    'defaultRoute' => 'blog', //set blog as default route
+    'modules' => [
+        'blog' => [
+            'class' => 'funson86\blog\Module',
+            'controllerNamespace' => 'funson86\blog\controllers\frontend'
+        ],
+    ],
+```
 
-GETTING STARTED
----------------
+### Add yii2-blog params in /frontend/config/params.php.
+```php
+return [
+    'blogTitle' => 'HikeBlog',
+    'blogTitleSeo' => 'Simple Blog based on Yii2',
+    'blogFooter' => 'Copyright &copy; ' . date('Y') . ' by ahuasheng on Yii2. All Rights Reserved.',
+    'blogPostPageCount' => '2',
+    'blogLinks' => [
+        'Google' => 'http://www.google.com',
+        'Funson86 Blog' => 'http://github.com/funson86/yii2-blog',
+    ],
+];
+```
 
-After you install the application, you have to conduct the following steps to initialize
-the installed application. You only need to do these once for all.
-
-1. Run command `init` to initialize the application with a specific environment.
-2. Create a new database and adjust the `components['db']` configuration in `common/config/main-local.php` accordingly.
-3. Apply migrations with console command `yii migrate`. This will create tables needed for the application to work.
-4. Set document roots of your Web server:
-
-- for frontend `/path/to/yii-application/frontend/web/` and using the URL `http://frontend/`
-- for backend `/path/to/yii-application/backend/web/` and using the URL `http://backend/`
-
-To login into the application, you need to first sign up, with any of your email address, username and password.
-Then, you can login into the application with same email address and password at any time.
+### Access Url
+1. backend : http://you-domain/backend/web/blog
+   - Catalog : http://you-domain/backend/web/blog/blog-catalog
+   - Post : http://you-domain/backend/web/blog/blog-post
+   - Comment : http://you-domain/backend/web/blog/blog-comment
+   - Tag : http://you-domain/backend/web/blog/blog-tag
+2. frontend : http://you-domain/fontend/web/blog
