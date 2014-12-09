@@ -1,6 +1,6 @@
 <?php
 
-namespace funson86\blog;
+namespace funson86\cms;
 
 /**
  * This is just an example.

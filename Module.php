@@ -1,11 +1,11 @@
 <?php
 
-namespace funson86\blog;
+namespace funson86\cms;
 use Yii;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'funson86\blog\controllers\frontend';
+    public $controllerNamespace = 'funson86\cms\controllers\frontend';
 
     protected $_isBackend;
 
@@ -14,10 +14,10 @@ class Module extends \yii\base\Module
         parent::init();
 
         if ($this->getIsBackend() === true) {
-            $this->setViewPath('@funson86/blog/views/backend');
+            $this->setViewPath('@funson86/cms/views/backend');
         } else {
-            $this->setViewPath('@funson86/blog/views/frontend');
-            $this->setLayoutPath('@funson86/blog/views/frontend/layouts');
+            $this->setViewPath('@funson86/cms/views/frontend');
+            $this->setLayoutPath('@funson86/cms/views/frontend/layouts');
         }
     }
 
