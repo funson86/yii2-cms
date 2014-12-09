@@ -1,8 +1,8 @@
 {
-    "name": "funson86/yii2-blog",
-    "description": "Yii2 Blog for other application",
+    "name": "funson86/yii2-cms",
+    "description": "Yii2 Cms for other application",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension"],
+    "keywords": ["yii2","extension","cms"],
     "license": "Apache-2.0",
     "authors": [
         {
@@ -15,10 +15,10 @@
     },
     "autoload": {
         "psr-4": {
-            "funson86\\blog\\": ""
+            "funson86\\cms\\": ""
         }
     },
     "extra": {
-        "bootstrap": "funson86\\blog\\Bootstrap"
+        "bootstrap": "funson86\\cms\\Bootstrap"
     }
 }
