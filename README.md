@@ -16,7 +16,7 @@ php composer.phar require --prefer-dist funson86/yii2-cms "*"
 or add
 
 ```
-"funson86/yii2-blog": "*"
+"funson86/yii2-cms": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -32,7 +32,7 @@ Once the extension is installed, simply use it in your code by  :
 Migration run
 
 ```php
-yii migrate --migrationPath=@funson86/blog/migrations
+yii migrate --migrationPath=@funson86/cms/migrations
 ```
 
 ### Config url rewrite in /common/config/main.php
@@ -62,9 +62,9 @@ yii migrate --migrationPath=@funson86/blog/migrations
 
 ```php
     'modules' => [
-        'blog' => [
-            'class' => 'funson86\blog\Module',
-            'controllerNamespace' => 'funson86\blog\controllers\backend'
+        'cms' => [
+            'class' => 'funson86\cms\Module',
+            'controllerNamespace' => 'funson86\cms\controllers\backend'
         ],
     ],
 ```
@@ -72,33 +72,33 @@ yii migrate --migrationPath=@funson86/blog/migrations
 ### Config frontend modules in frontend/config/main.php
 
 ```php
-    'defaultRoute' => 'blog', //set blog as default route
+    'defaultRoute' => 'cms', //set cms as default route
     'modules' => [
-        'blog' => [
-            'class' => 'funson86\blog\Module',
-            'controllerNamespace' => 'funson86\blog\controllers\frontend'
+        'cms' => [
+            'class' => 'funson86\cms\Module',
+            'controllerNamespace' => 'funson86\cms\controllers\frontend'
         ],
     ],
 ```
 
-### Add yii2-blog params in /frontend/config/params.php.
+### Add yii2-cms params in /frontend/config/params.php.
 ```php
 return [
-    'blogTitle' => 'HikeBlog',
-    'blogTitleSeo' => 'Simple Blog based on Yii2',
-    'blogFooter' => 'Copyright &copy; ' . date('Y') . ' by ahuasheng on Yii2. All Rights Reserved.',
-    'blogPostPageCount' => '2',
-    'blogLinks' => [
+    'cmsTitle' => 'HikeCms',
+    'cmsTitleSeo' => 'Simple Cms based on Yii2',
+    'cmsFooter' => 'Copyright &copy; ' . date('Y') . ' by ahuasheng on Yii2. All Rights Reserved.',
+    'cmsPostPageCount' => '2',
+    'cmsLinks' => [
         'Google' => 'http://www.google.com',
-        'Funson86 Blog' => 'http://github.com/funson86/yii2-blog',
+        'Funson86 Cms' => 'http://github.com/funson86/yii2-cms',
     ],
 ];
 ```
 
 ### Access Url
-1. backend : http://you-domain/backend/web/blog
-   - Catalog : http://you-domain/backend/web/blog/blog-catalog
-   - Post : http://you-domain/backend/web/blog/blog-post
-   - Comment : http://you-domain/backend/web/blog/blog-comment
-   - Tag : http://you-domain/backend/web/blog/blog-tag
-2. frontend : http://you-domain/fontend/web/blog
+1. backend : http://you-domain/backend/web/cms
+   - Catalog : http://you-domain/backend/web/cms/cms-catalog
+   - Post : http://you-domain/backend/web/cms/cms-post
+   - Comment : http://you-domain/backend/web/cms/cms-comment
+   - Tag : http://you-domain/backend/web/cms/cms-tag
+2. frontend : http://you-domain/fontend/web/cms
