@@ -5,15 +5,13 @@ use yii\db\Schema;
 
 /**
  * CLass m141208_201480_blog_init
- * @package funson86\blog\migrations
+ * @package funson86\cms\migrations
  *
  * Create blog tables.
  *
  * Will be created 4 tables:
- * - `{{%blog_catalog}}` - Blog catalog
- * - `{{%blog_post}}` -
- * - `{{%blog_comment}}` -
- * - `{{%blog_tag}}` -
+ * - `{{%cms_catalog}}` - Cms catalog or page
+ * - `{{%cms_show}}` - Cms page of list item
  */
 class m141208_201481_cms_init extends Migration
 {
@@ -32,22 +30,22 @@ class m141208_201481_cms_init extends Migration
                 'id' => Schema::TYPE_PK,
                 'parent_id' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
                 'title' => Schema::TYPE_STRING . '(255) NOT NULL',
-                'surname' => Schema::TYPE_STRING . '(128) DEFAULT NULL',
+                'surname' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
                 'brief' => Schema::TYPE_STRING . '(1022) DEFAULT NULL',
                 'content' => Schema::TYPE_TEXT . ' DEFAULT NULL',
-                'seo_title' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'seo_keywords' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'seo_description' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'banner' => Schema::TYPE_STRING . '(255) NOT NULL',
+                'seo_title' => Schema::TYPE_STRING . '(255)',
+                'seo_keywords' => Schema::TYPE_STRING . '(255)',
+                'seo_description' => Schema::TYPE_STRING . '(255)',
+                'banner' => Schema::TYPE_STRING . '(255)',
                 'is_nav' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
                 'sort_order' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 50',
-                'page_type' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
+                'page_type' => Schema::TYPE_STRING . ' NOT NULL DEFAULT "page"',
                 'page_size' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 10',
                 'template_list' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "list"',
                 'template_show' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "show"',
                 'template_page' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "page"',
                 'redirect_url' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
-                'click' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
+                'click' => Schema::TYPE_INTEGER . ' DEFAULT 0',
                 'status' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL'
@@ -62,7 +60,7 @@ class m141208_201481_cms_init extends Migration
         $this->createIndex('created_at', '{{%cms_catalog}}', 'created_at');
 
 
-        // table cms_catalog
+        // table cms_show
         $this->createTable(
             '{{%cms_show}}',
             [
@@ -72,10 +70,10 @@ class m141208_201481_cms_init extends Migration
                 'surname' => Schema::TYPE_STRING . '(128) DEFAULT NULL',
                 'brief' => Schema::TYPE_STRING . '(1022) DEFAULT NULL',
                 'content' => Schema::TYPE_TEXT . ' DEFAULT NULL',
-                'seo_title' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'seo_keywords' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'seo_description' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'banner' => Schema::TYPE_STRING . '(255) NOT NULL',
+                'seo_title' => Schema::TYPE_STRING . '(255)',
+                'seo_keywords' => Schema::TYPE_STRING . '(255)',
+                'seo_description' => Schema::TYPE_STRING . '(255)',
+                'banner' => Schema::TYPE_STRING . '(255)',
                 'template_show' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "show"',
                 'author' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "show"',
                 'click' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
@@ -92,7 +90,7 @@ class m141208_201481_cms_init extends Migration
         $this->createIndex('created_at', '{{%cms_show}}', 'created_at');
 
         // Foreign Keys
-        $this->addForeignKey('FK_cms_catalog', '{{%cms_post}}', 'catalog_id', '{{%cms_catalog}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('FK_cms_catalog', '{{%cms_show}}', 'catalog_id', '{{%cms_catalog}}', 'id', 'CASCADE', 'CASCADE');
 
         // Add super-administrator
         //$this->execute($this->getUserSql());
