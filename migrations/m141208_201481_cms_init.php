@@ -9,7 +9,7 @@ use yii\db\Schema;
  *
  * Create blog tables.
  *
- * Will be created 4 tables:
+ * This will create 2 tables:
  * - `{{%cms_catalog}}` - Cms catalog or page
  * - `{{%cms_show}}` - Cms page of list item
  */
