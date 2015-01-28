@@ -1,4 +1,4 @@
-Yii2 Cms
+Yii2 Cms -under development
 =========
 Yii2 Cms for other application, especially for [Yii2 Adminlte](https://github.com/funson86/yii2-adminlte)
 

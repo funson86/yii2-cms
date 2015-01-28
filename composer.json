@@ -12,6 +12,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
+        "funson86/yii2-setting": "*",
         "mihaildev/yii2-ckeditor": "*"
     },
     "autoload": {
