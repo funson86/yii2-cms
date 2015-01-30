@@ -136,6 +136,20 @@ class CmsCatalog extends \yii\db\ActiveRecord
         return $this->_status;
     }
 
+    public static function getCatalogPageTypeLabels($id = null)
+    {
+        $data = [
+            self::PAGE_TYPE_LIST => Module::t('cms', 'PAGE_TYPE_LIST'),
+            self::PAGE_TYPE_PAGE => Module::t('cms', 'PAGE_TYPE_PAGE'),
+        ];
+
+        if ($id !== null && isset($data[$id])) {
+            return $data[$id];
+        } else {
+            return $data;
+        }
+    }
+
     /**
      * Before save.
      * 
@@ -178,7 +192,7 @@ class CmsCatalog extends \yii\db\ActiveRecord
      */
     public static function getOneIsNavLabel($isNav = null)
     {
-        if($isNav)
+        if($isNav !== null)
         {
             $arrayIsNav = self::getArrayIsNav();
             return $arrayIsNav[$isNav];
@@ -198,6 +212,8 @@ class CmsCatalog extends \yii\db\ActiveRecord
     }
 
     /**
+     * Get all catalog order by parent/child with the space before child label
+     * Usage: ArrayHelper::map(Catalog::get(0, Catalog::find()->asArray()->all()), 'id', 'label')
      * @param int $parentId  parent catalog id
      * @param array $array  catalog array list
      * @param int $level  catalog level, will affect $repeat
@@ -205,105 +221,70 @@ class CmsCatalog extends \yii\db\ActiveRecord
      * @param string $repeat  symbols or spaces to be added for sub catalog
      * @return array  catalog collections
      */
-
-    static public function get($parentId = 0, $array = array(), $level = 0, $add = 2, $repeat = '　')
+    static public function get($parentId = 0, $array = [], $level = 0, $add = 2, $repeat = '　')
     {
         $strRepeat = '';
         // add some spaces or symbols for non top level categories
-        if ($level>1) {
-            for($j = 0; $j < $level; $j ++)
-            {
+        if ($level > 1) {
+            for ($j = 0; $j < $level; $j++) {
                 $strRepeat .= $repeat;
             }
         }
 
-        // i feel this is useless
-        if($level>0)
-            $strRepeat .= '';
-
         $newArray = array ();
-        $tempArray = array ();
-
         //performance is not very good here
-        foreach ( ( array ) $array as $v )
-        {
-            if ($v['parent_id'] == $parentId)
-            {
-                $newArray [] = array ('id' => $v['id'], 'title' => $v['title'], 'parent_id' => $v['parent_id'],  'sort_order' => $v['sort_order'],
-                    'banner' => $v['banner'], //'postsCount'=>$v['postsCount'],
-                    'is_nav' => $v['is_nav'], 'page_type' => $v['page_type'],
-                    'status' => $v['status'], 'created_at' => $v['created_at'], 'updated_at' => $v['updated_at'], 'redirect_url' => $v['redirect_url'], 'str_repeat' => $strRepeat, 'str_label' => $strRepeat.$v['title'],);
+        foreach ((array)$array as $v) {
+            if ($v['parent_id'] == $parentId) {
+                $item = (array)$v;
+                $item['label'] = $strRepeat . (isset($v['title']) ? $v['title'] : $v['name']);
+                $newArray[] = $item;
 
-                $tempArray = self::get ( $v['id'], $array, ($level + $add), $add, $repeat);
-                if ($tempArray)
-                {
-                    $newArray = array_merge ( $newArray, $tempArray );
+                $tempArray = self::get($v['id'], $array, ($level + $add), $add, $repeat);
+                if ($tempArray) {
+                    $newArray = array_merge($newArray, $tempArray);
                 }
             }
         }
         return $newArray;
+    }
+
+
+    /**
+     * Get all children id as a array
+     * Usage:
+     * $ids = Catalog::getCatalogIdStr($id, CmsCatalog::find()->all());
+     * $shows = CmsShow::find()->where(['catalog_id' => $ids,])->all();
+     * @param int $parentId  parent catalog id
+     * @param array $array  catalog array list
+     * @return array  catalog Id collections. eg: [2, 3, 7, 8]
+     */
+    static public function getArraySubCatalogId($parentId = 0, $array = [])
+    {
+        $result[] = $parentId;
+        foreach ((array)$array as $v) {
+            if ($v['parent_id'] == $parentId) {
+                $tempResult = self::getArraySubCatalogId($v['id'], $array);
+                if ($tempResult) {
+                    $result = array_merge($result, $tempResult);
+                }
+            }
+        }
+        return $result;
     }
 
     /**
-     * return all sub catalogs of a parent catalog
-     * @param int $parentId
-     * @param array $array
-     * @return array
+     * Get the root catalog id
+     * Usage: $rootId = Catalog::getArraySubCatalogId($id, Catalog::find()->asArray()->all());
+     * @param int $id  parent catalog id
+     * @param array $array  catalog array list
+     * @return int root catalog id
      */
-
-    static public function getCatalog($parentId=0,$array = array())
-    {
-        $newArray=array();
-        foreach ((array)$array as $v)
-        {
-            if ($v['parent_id']==$parentId)
-            {
-                $newArray[$v['id']]=array(
-                    'text'=>$v['title'].' ����['.($v['is_nav'] ? Module::t('common', 'CONSTANT_YES') : Module::t('common', 'CONSTANT_NO')).'] ����['.$v['sort_order'].
-                        '] ����['.($v['page_type'] == 'list' ? Module::t('common', 'PAGE_TYPE_LIST') : Module::t('common', 'PAGE_TYPE_PAGE')).'] ״̬['.
-                        F::getStatus2($v['status']).'] [<a href="'.Yii::app()->createUrl('/catalog/update',array('id'=>$v['id'])).'">�޸�</a>][<a href="'
-                        .Yii::app()->createUrl('/catalog/create',array('id'=>$v['id'])).'">�����Ӳ˵�</a>]&nbsp;&nbsp[<a href="'.
-                        Yii::app()->createUrl('/catalog/delete',array('id'=>$v['id'])).'">ɾ��</a>]',
-                    //'children'=>array(),
-                );
-
-                $tempArray = self::getCatalog($v['id'],$array);
-                if($tempArray)
-                {
-                    $newArray[$v['id']]['children']=$tempArray;
-                }
-            }
-        }
-        return $newArray;
-    }
-
-    static public function getCatalogIdStr($parentId=0,$array = array())
-    {
-        $str = $parentId;
-        foreach ((array)$array as $v)
-        {
-            if ($v['parent_id']==$parentId)
-            {
-
-                $tempStr = self::getCatalogIdStr($v['id'],$array);
-                if($tempStr)
-                {
-                    $str .= ','.$tempStr;
-                }
-            }
-        }
-        return $str;
-    }
-
     static public function getRootCatalogId($id = 0, $array = [])
     {
-        if(0 == $id)
-        {
+        if (0 == $id)
             return 0;
-        }
 
-        foreach ((array)$array as $v)
-        {
+        foreach ((array)$array as $v) {
             if ($v['id'] == $id) {
                 $parentId = $v['parent_id'];
                 if(0 == $parentId)
@@ -314,19 +295,19 @@ class CmsCatalog extends \yii\db\ActiveRecord
         }
     }
 
-    static public function getCatalogSub2($id=0,$array = array())
+    /**
+     * Get the root catalog id, then get the sub catalog of the root calalog
+     * Usage: $rootId = Catalog::getArraySubCatalogId($id, Catalog::find()->asArray()->all());
+     * @param int $id  parent catalog id
+     * @param array $array  catalog array list
+     * @return array  the sub catalog of root catalog Id collections.
+     */
+    static public function getRootCatalogSub2($id = 0, $array = [])
     {
-        if(0 == $id)
-        {
-            return 0;
-        }
-
         $arrayResult = array();
         $rootId = self::getRootCatalogId($id, $array);
-        foreach ((array)$array as $v)
-        {
-            if ($v['parent_id']==$rootId)
-            {
+        foreach ((array)$array as $v) {
+            if ($v['parent_id'] == $rootId) {
                 array_push($arrayResult, $v);
             }
         }
@@ -334,46 +315,4 @@ class CmsCatalog extends \yii\db\ActiveRecord
         return $arrayResult;
     }
 
-    static public function getBreadcrumbs($id=0,$array = array())
-    {
-        if(0 == $id)
-        {
-            return;
-        }
-
-        $arrayResult = self::getPathToRoot($id, $array);
-
-        return array_reverse($arrayResult);
-    }
-
-    static public function getPathToRoot($id=0,$array = array())
-    {
-        if (0 == $id) {
-            return array();
-        }
-
-        $arrayResult = array();
-        $parent_id = 0;
-        foreach ((array)$array as $v) {
-            if ($v['id'] == $id) {
-                $parent_id = $v['parent_id'];
-                if (self::PAGE_TYPE_LIST == $v['page_type'])
-                    $arrayResult = array($v['title'] => array('list', id => $v['id']));
-                elseif (self::PAGE_TYPE_PAGE == $v['page_type'])
-                    $arrayResult = array($v['title'] => array('page', id => $v['id']));
-            }
-        }
-
-        if (0 < $parent_id) {
-            $arrayTemp = self::getPathToRoot($parent_id, $array);
-
-            if (!empty($arrayTemp))
-                $arrayResult += $arrayTemp;
-        }
-
-        if (!empty($arrayResult))
-            return $arrayResult;
-        else
-            return;
-    }
 }

@@ -48,7 +48,7 @@ class CmsCatalogController extends Controller
         //if(!Yii::$app->user->can('viewYourAuth')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
 
         $searchModel = new CmsCatalogSearch();
-        $dataProvider = CmsCatalog::get(0, CmsCatalog::find()->all());
+        $dataProvider = CmsCatalog::get(0, CmsCatalog::find()->asArray()->all());
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -82,10 +82,17 @@ class CmsCatalogController extends Controller
         $model = new CmsCatalog();
         $model->loadDefaultValues();
 
-        if(isset($_GET['parent_id']) && $_GET['parent_id'] > 0)
-        $model->parent_id = $_GET['parent_id'];
+        if (Yii::$app->request->get('parent_id')) {
+            $model->parent_id = Yii::$app->request->get('parent_id');
+            $parentCatalog = CmsCatalog::findOne(Yii::$app->request->get('parent_id'));
+            $model->page_type = $parentCatalog->page_type;
+        }
 
         if ($model->load(Yii::$app->request->post())) {
+            if (isset($parentCatalog)) {
+                $model->page_type = $parentCatalog->page_type;
+            }
+
             $model->banner = UploadedFile::getInstance($model, 'banner');
             if ($model->validate()) {
                 if ($model->banner) {
@@ -120,9 +127,11 @@ class CmsCatalogController extends Controller
 
         $model = $this->findModel($id);
         $oldBanner = $model->banner;
+        $oldPageType = $model->page_type;
 
         if ($model->load(Yii::$app->request->post())) {
             $model->banner = UploadedFile::getInstance($model, 'banner');
+            $model->page_type = $oldPageType;
             if ($model->validate()) {
                 if($model->banner){
                     $bannerName = Yii::$app->params['blogUploadPath'] . date('Ymdhis') . rand(1000, 9999) . '.' . $model->banner->extension;

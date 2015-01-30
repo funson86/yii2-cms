@@ -75,7 +75,7 @@ class m141208_201481_cms_init extends Migration
                 'seo_description' => Schema::TYPE_STRING . '(255)',
                 'banner' => Schema::TYPE_STRING . '(255)',
                 'template_show' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "show"',
-                'author' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "show"',
+                'author' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "admin"',
                 'click' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
                 'status' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',

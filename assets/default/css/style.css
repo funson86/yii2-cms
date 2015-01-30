@@ -1,0 +1,122 @@
+html{overflow-y:scroll;}
+body{padding:0;margin:0;font:12px/18px microsoft yahei,arial; background:#fafafa; color:#4a4a4a; min-width:1000px;}
+body, div, ol, dl, dt, dd, ul, li, table, tr, td, h1, h2, h3, h4, h5, h6, p, form, button, img, strong, em { padding:0px; margin:0px; border:0px; font-style:normal;}
+li, dd, dt { list-style-type:none;}
+ol, ul, dl { list-style:none;}
+a,img{blr:expression(this.onFocus=this.blur());outline:none;}
+img{border:0; vertical-align:top;}
+a{color:#4a4a4a;text-decoration:none;cursor:pointer; font-family:microsoft yahei,arial;}
+a:hover{color:#519BD8;text-decoration:underline;}
+textarea{  font-family:microsoft yahei,arial;}
+th,h1, h2, h3{color:#5F5F5F}
+a,input,button{outline:none; -webkit-highlight-color:rgba(0,0,0,0);}
+/********** 字体 **********/
+.u{text-decoration:underline;}
+.u:hover{text-decoration:underline;}
+.b{font-weight:bold;}
+
+.ahot{color:#c00;}
+.ahot:hover{color:#09f;}
+.alan{color:#3674A9;}
+.alan:hover{color:#c00}
+.ahui{color:#7C7C7C;}
+.ahui:hover{color:#09f;}
+
+.hot{color:#c00;}
+.prompt_hot{ margin-left:10px}
+
+/********** 其它 **********/
+.clearfix:after{height:0;display:block;visibility:hidden;content:".";clear:both;}
+.clearfix{display:inline-block;}
+*html .clearfix{height:1%;}
+.clearfix{display:block;}
+.clear{height:0;overflow:hidden;font:0/0 microsoft yahei;visibility:hidden;clear:both;}
+.hidden{display:none;}
+.l{float:left;}
+.r{float:right;}
+.d{float:right;margin-left:5px;}
+.middle{margin:0 auto;float:none;clear:both;}
+
+.mt15{margin-top:15px;}
+.mr5{margin-right:5px;}
+.mr10{margin-right:10px;}
+.mr15{margin-right:15px;}
+.tx_12{ font-size:12px}
+.tx_14{ font-size:14px}
+
+/************************** custom **************************************/
+
+
+
+.container{width:100%; padding: 0; margin: 0}
+#header{height: 70px; width:1000px; margin: auto;}
+.logo{ float:left; width:405px; height:70px; line-height:999px; overflow:hidden; background-image:url("../images/logo.png"); background-repeat:no-repeat; background-position:left 13px; _background-image:url("../images/logo.gif");}
+#mainMenu{ float:right; height:auto; border-left:1px solid #d9d9d9;}
+#mainMenu ul li{float:left; height:auto; font-size:16px;}
+#mainMenu ul li a{float:left; height:100%; line-height:30px; padding:20px 25px; border-left:1px solid #fff; border-right:1px solid #d9d9d9;}
+#mainMenu ul li a:hover{ text-decoration:none;}
+#mainMenu ul li a.hover:link, #mainMenu ul li a.hover:visited{ background:#fafafa; color:#519BD8; }
+
+#footer{width:100%; height:auto; background:#333; overflow:hidden; color:#FFF; padding: 20px;}
+#footer .footerContent{position:relative; margin:0px auto; width:900px; height:auto; text-align:center;}
+
+
+/*******************index home ****************************/
+/* --- banner --- */
+.banner{ z-index:1; position:relative; width:100%; height:455px; overflow:hidden; padding-bottom:50px;}
+.banner .slider{ width:100%; height:405px;}
+.banner .slider li{ width:100%; height:405px; text-align:center; opacity:0;filter:alpha(opacity=0); display:none;}
+.banner .slider li.No1{ background:url("../images/home_banner_01.png") no-repeat center;}
+.banner .slider li.No2{ background:url("../images/home_banner_02.png") no-repeat center;}
+.banner .slider li.No3{ background:url("../images/home_banner_03.png") no-repeat center;}
+.banner .slider li a{ width:100%; height:100%; display:inline-block}
+.banner .slider_page{ z-index:2; position:absolute; bottom:20px; left:0; width:100%; text-align:center;}
+.banner .slider_page a,.banner .up_down{ background:url("../images/home.png") no-repeat; _background:url("../images/home.gif") no-repeat;}
+.banner .slider_page a{ margin:0 5px; display:inline-block; background-position:0 -47px; width:10px; height:10px; overflow:hidden;}
+.banner .slider_page a.current{ color:#fff; background-position:0 -61px}
+.banner .up_down{ display:none; z-index:2; position:absolute; top:50%; margin-top:-60px; width:31px; height:71px; opacity:0.5; filter:alpha(opacity=50);}
+.banner .up_down:hover{ opacity:1; filter:alpha(opacity=100);}
+.banner .up{ left:50%; margin-left:-500px; background-position:-13px 0;}
+.banner .down{ right:50%; margin-right:-500px; background-position:-47px 0}
+
+.area{ margin:0px auto; width:1000px; height:auto;}
+.superiority{ width:100%; text-align:center; height:auto; padding:0px 0 60px 0; overflow:hidden;}
+.superiority h1{ padding-bottom:60px; font-size:32px; color:#6c7e8d; line-height:38px; font-weight:normal;}
+.superiority h1 img{ margin-right:10px;}
+.superiority dl{ float:left; height:auto; padding:0px 38px; _padding:0px 34px;}
+.superiority dl dt{ float:left; width:90px; height:90px; background:url("../images/superiority.png") no-repeat 0px 0px;}
+.superiority dl dt.No2{ background-position:-100px 0px;}
+.superiority dl dt.No3{ background-position:-200px 0px;}
+.superiority dl dd{ float:left; margin-left:10px; text-align:left; height:auto; padding:5px 0;}
+.superiority dl dd h3 { font-size:20px; color:#444; font-weight:normal; padding-bottom:8px;}
+.superiority dl dd p { color:#8b8b8b; font-size:14px; line-height:1.6;}
+.superiority dl dd p a:link,.superiority dl dd p a:visited{ color:#8b8b8b;}
+.superiority dl dd p a:hover{ color:#519BD8;}
+
+/*******************index home ****************************/
+
+.info-banner{width:100%; height:auto; text-align:center; min-height: 300px;}
+.page-banner, .list-banner, .show-banner{background:url("../images/case_banner_bg.png") repeat-x;}
+.column2{margin:0px auto; width:998px; height:auto; overflow:hidden; background:#fff; border-left:1px solid #d8d8d8;  border-right:1px solid #d8d8d8;}
+#sidebar{padding-bottom:10000px; margin-bottom:-10000px;float:left; width:199px; height:auto; background:#f0f0f0; border-right:1px solid #d8d8d8; border-left:1px solid #d8d8d8;}
+#sidebar .portlet-title{text-align:center; padding:1em 0; font-size:2.5em; color:#333; font-weight:normal; line-height:1.3;}
+#sidebar .portlet-content ul{border-top:#d8d8d8 solid 1px;}
+#sidebar .portlet-content ul li{height: auto}
+#sidebar .portlet-content ul li a{display:block; padding-left:39px; height:48px; line-height:48px; font-size:1.3em; border-bottom:#d8d8d8 solid 1px;}
+#sidebar .portlet-content ul li a:hover{color:#3796ec; background:#fff; border-left:#3796ec solid 3px; text-decoration: none;}
+#sidebar .portlet-content .content-text{padding: 0px 15px 20px 15px;}
+
+#mainRight{margin-left:200px; height:auto; overflow:hidden;}
+.listPage .title{height:40px; line-height:40px; border-bottom:1px solid #dedede; margin: 20px 20px;}
+#mainRight .title strong{float:left; margin-top:-1px; padding:0px 8px; height:auto; line-height:41px; font-size:1.6em; font-weight:normal; border-bottom:1px solid #3796ec;}
+#mainRight ul{padding: 0px 20px;}
+#mainRight ul li{width:100%; height:auto; padding:10px 0 5px 0; border-bottom:1px dashed #ccc;font-size: 14px;}
+#mainRight ul li span{float: right;}
+#mainRight ul li a{font-size: 14px;}
+.showPage .title{text-align:center; font-size:2.5em; color:#000; font-weight:normal; line-height:1.3; padding-top:0.5em; border-bottom:none;}
+.showPage p.date{font-size:12px; line-height:20px; color:#999; text-align: center}
+#mainRight .contentText{padding:0.5em 0; font-size:1.28em; line-height:1.75; word-spacing:-1px; word-wrap:break-word; margin: 20px;}
+
+.pagePage .title{text-align:center; font-size:2.5em; color:#000; font-weight:normal; line-height:1.3; padding-top:0.5em; border-bottom:none;}
+.pagePage p.date{font-size:12px; line-height:20px; color:#999; text-align: center}
+.pagePage .contentText{padding:0.5em 0; font-size:1.28em; line-height:1.75; word-spacing:-1px; word-wrap:break-word; margin: 20px;}

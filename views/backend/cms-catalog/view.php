@@ -14,11 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cms-catalog-view">
 
     <p>
-        <?= Html::a(Yii::t('cms', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('cms', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Module::t('cms', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Module::t('cms', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('cms', 'Are you sure you want to delete this item?'),
+                'confirm' => Module::t('cms', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -42,9 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'banner',
             [
                 'attribute' => 'is_nav',
-                'value' => $model->isNavLabel,
+                'value' => \funson86\cms\models\YesNo::labels($model->is_nav),
             ],
             'sort_order',
+            [
+                'attribute' => 'page_type',
+                'value' => \funson86\cms\models\CmsCatalog::getCatalogPageTypeLabels($model->page_type),
+            ],
             'page_type',
             'page_size',
             'template_list',

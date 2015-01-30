@@ -80,6 +80,10 @@ class CmsShowController extends Controller
         $model = new CmsShow();
         $model->loadDefaultValues();
 
+        if (Yii::$app->request->get('catalog_id')) {
+            $model->catalog_id = Yii::$app->request->get('catalog_id');
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

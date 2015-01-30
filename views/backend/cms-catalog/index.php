@@ -38,12 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php foreach($dataProvider as $item){ ?>
         <tr data-key="1">
             <td><?= $item['id']; ?></td>
-            <td><?= $item['str_label']; ?></td>
+            <td><?= $item['label']; ?></td>
             <td><?= $item['sort_order']; ?></td>
-            <td><?= $item['page_type']; ?></td>
-            <td><?= CmsCatalog::getOneIsNavLabel($item['is_nav']); ?></td>
+            <td><?= CmsCatalog::getCatalogPageTypeLabels($item['page_type']); ?></td>
+            <td><?= \funson86\cms\models\YesNo::labels()[$item['is_nav']]; ?></td>
             <td><?= \funson86\cms\models\Status::labels()[$item['status']]; ?></td>
             <td>
+                <?php if ($item['page_type'] == CmsCatalog::PAGE_TYPE_LIST) { ?><a href="<?= \Yii::$app->getUrlManager()->createUrl(['cms/cms-show/create','catalog_id'=>$item['id']]); ?>" title="<?= Module::t('cms', 'Add Show');?>" data-pjax="0"><span class="glyphicon glyphicon-file"></span></a> <?php } ?>
                 <a href="<?= \Yii::$app->getUrlManager()->createUrl(['cms/cms-catalog/create','parent_id'=>$item['id']]); ?>" title="<?= Module::t('cms', 'Add Sub Catelog');?>" data-pjax="0"><span class="glyphicon glyphicon-plus-sign"></span></a>
                 <a href="<?= \Yii::$app->getUrlManager()->createUrl(['cms/cms-catalog/view','id'=>$item['id']]); ?>"" title="<?= Module::t('cms', 'View');?>" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
                 <a href="<?= \Yii::$app->getUrlManager()->createUrl(['cms/cms-catalog/update','id'=>$item['id']]); ?>"" title="<?= Module::t('cms', 'Update');?>" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
