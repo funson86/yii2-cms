@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = '文章';
 
 <div class="area">
     <div class="superiority">
-        <h1><img src="http://www.chexiu.cn/cache/images/superiority_logo.png">三大价值,八项提升</h1>
+        <!--h1><img src="#">三大价值,八项提升</h1-->
         <dl>
             <dt class="No1"></dt>
             <dd>
