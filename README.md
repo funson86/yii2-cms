@@ -98,7 +98,5 @@ return [
 ### Access Url
 1. backend : http://you-domain/backend/web/cms
    - Catalog : http://you-domain/backend/web/cms/cms-catalog
-   - Post : http://you-domain/backend/web/cms/cms-post
-   - Comment : http://you-domain/backend/web/cms/cms-comment
-   - Tag : http://you-domain/backend/web/cms/cms-tag
+   - Show : http://you-domain/backend/web/cms/cms-show
 2. frontend : http://you-domain/fontend/web/cms
