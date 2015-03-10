@@ -32,7 +32,7 @@ Once the extension is installed, simply use it in your code by  :
 Migration run
 
 ```php
-yii migrate --migrationPath=@funson86/cms/migrations
+php yii migrate --migrationPath=@funson86/cms/migrations
 ```
 
 ### Config url rewrite in /common/config/main.php
