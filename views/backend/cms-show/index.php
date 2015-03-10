@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             [
-                'attribute'=>'catalog_id',
-                'value'=>function ($model) {
+                'attribute' => 'catalog_id',
+                'value' => function ($model) {
                     return $model->catalog->title;
                 },
             ],

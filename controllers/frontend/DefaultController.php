@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 class DefaultController extends Controller
 {
     public $mainMenu = [];
+    public $mainMenu2 = [];
     public $layout = 'main';
 
     /**
@@ -50,11 +51,33 @@ class DefaultController extends Controller
                     $item['url'] = Yii::$app->getUrlManager()->createUrl(['/cms/default/' . $catalog->page_type . '/', 'id'=>$catalog->id, 'surname'=>$catalog->surname]);
                 }
 
-                if(!empty($item))
+                if (!empty($item))
                     array_push($this->mainMenu, $item);
             }
             Yii::$app->params['mainMenu'] = $this->mainMenu;
 
+            // sub menu 2
+            if (isset(Yii::$app->params['mainMenu2'])) {
+                $allCatalog = CmsCatalog::get(0, CmsCatalog::find()->asArray()->all());
+                foreach ($allCatalog as $catalog) {
+                    $item = ['label' => $catalog['title'], 'active' => ($catalog['id'] == $id)];
+                    if ($catalog['redirect_url']) {// redirect to other site
+                        $item['url'] = $catalog['redirect_url'];
+                    } else {
+                        $item['url'] = $catalog['parent_id'] != 0 ? Yii::$app->getUrlManager()->createUrl(['/cms/default/' . $catalog['page_type'] . '/', 'id' => $catalog['id'], 'surname' => $catalog['surname']]) : '#';
+                    }
+
+                    if ($catalog['parent_id'] == 0) {
+                        $this->mainMenu2[$catalog['id']] = $item;
+                    } else {
+                        if (isset($this->mainMenu2[$catalog['parent_id']])) {
+                            $this->mainMenu2[$catalog['parent_id']]['items'][$catalog['id']] = $item;
+                        }
+                    }
+                }
+
+                Yii::$app->params['mainMenu2'] = $this->mainMenu2;
+            }
             return true;  // or false if needed
         } else {
             return false;

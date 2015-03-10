@@ -49,7 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'page_type',
                 'value' => \funson86\cms\models\CmsCatalog::getCatalogPageTypeLabels($model->page_type),
             ],
-            'page_type',
             'page_size',
             'template_list',
             'template_show',

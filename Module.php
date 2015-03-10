@@ -15,6 +15,9 @@ class Module extends \yii\base\Module
 
         if ($this->getIsBackend() === true) {
             $this->setViewPath('@funson86/cms/views/backend');
+        } elseif (isset(Yii::$app->params['cmsTheme'])) {
+            $this->setViewPath('@frontend/themes/cms');
+            $this->setLayoutPath('@frontend/themes/cms/layouts');
         } else {
             $this->setViewPath('@funson86/cms/views/frontend');
             $this->setLayoutPath('@funson86/cms/views/frontend/layouts');
